@@ -1,0 +1,393 @@
+/* 
+ * CS:APP Data Lab 
+ * 
+ * <Please put your name and userid here>
+ * 
+ * bits.c - Source file with your solutions to the Lab.
+ *          This is the file you will hand in to your instructor.
+ *
+ * WARNING: Do not include the <stdio.h> header; it confuses the dlc
+ * compiler. You can still use printf for debugging without including
+ * <stdio.h>, although you might get a compiler warning. In general,
+ * it's not good practice to ignore compiler warnings, but in this
+ * case it's OK.  
+ */
+
+#if 0
+/*
+ * Instructions to Students:
+ *
+ * STEP 1: Read the following instructions carefully.
+ */
+
+You will provide your solution to the Data Lab by
+editing the collection of functions in this source file.
+
+INTEGER CODING RULES:
+ 
+  Replace the "return" statement in each function with one
+  or more lines of C code that implements the function. Your code 
+  must conform to the following style:
+ 
+  int Funct(arg1, arg2, ...) {
+      /* brief description of how your implementation works */
+      int var1 = Expr1;
+      ...
+      int varM = ExprM;
+
+      varJ = ExprJ;
+      ...
+      varN = ExprN;
+      return ExprR;
+  }
+
+  Each "Expr" is an expression using ONLY the following:
+  1. Integer constants 0 through 255 (0xFF), inclusive. You are
+      not allowed to use big constants such as 0xffffffff.
+  2. Function arguments and local variables (no global variables).
+  3. Unary integer operations ! ~
+  4. Binary integer operations & ^ | + << >>
+    
+  Some of the problems restrict the set of allowed operators even further.
+  Each "Expr" may consist of multiple operators. You are not restricted to
+  one operator per line.
+
+  You are expressly forbidden to:
+  1. Use any control constructs such as if, do, while, for, switch, etc.
+  2. Define or use any macros.
+  3. Define any additional functions in this file.
+  4. Call any functions.
+  5. Use any other operations, such as &&, ||, -, or ?:
+  6. Use any form of casting.
+  7. Use any data type other than int.  This implies that you
+     cannot use arrays, structs, or unions.
+
+ 
+  You may assume that your machine:
+  1. Uses 2s complement, 32-bit representations of integers.
+  2. Performs right shifts arithmetically.
+  3. Has unpredictable behavior when shifting an integer by more
+     than the word size.
+
+EXAMPLES OF ACCEPTABLE CODING STYLE:
+  /*
+   * pow2plus1 - returns 2^x + 1, where 0 <= x <= 31
+   */
+  int pow2plus1(int x) {
+     /* exploit ability of shifts to compute powers of 2 */
+     return (1 << x) + 1;
+  }
+
+  /*
+   * pow2plus4 - returns 2^x + 4, where 0 <= x <= 31
+   */
+  int pow2plus4(int x) {
+     /* exploit ability of shifts to compute powers of 2 */
+     int result = (1 << x);
+     result += 4;
+     return result;
+  }
+
+FLOATING POINT CODING RULES
+
+For the problems that require you to implent floating-point operations,
+the coding rules are less strict.  You are allowed to use looping and
+conditional control.  You are allowed to use both ints and unsigneds.
+You can use arbitrary integer and unsigned constants.
+
+You are expressly forbidden to:
+  1. Define or use any macros.
+  2. Define any additional functions in this file.
+  3. Call any functions.
+  4. Use any form of casting.
+  5. Use any data type other than int or unsigned.  This means that you
+     cannot use arrays, structs, or unions.
+  6. Use any floating point data types, operations, or constants.
+
+
+NOTES:
+  1. Use the dlc (data lab checker) compiler (described in the handout) to 
+     check the legality of your solutions.
+  2. Each function has a maximum number of operators (! ~ & ^ | + << >>)
+     that you are allowed to use for your implementation of the function. 
+     The max operator count is checked by dlc. Note that '=' is not 
+     counted; you may use as many of these as you want without penalty.
+  3. Use the btest test harness to check your functions for correctness.
+  4. Use the BDD checker to formally verify your functions
+  5. The maximum number of ops for each function is given in the
+     header comment for each function. If there are any inconsistencies 
+     between the maximum ops in the writeup and in this file, consider
+     this file the authoritative source.
+
+/*
+ * STEP 2: Modify the following functions according the coding rules.
+ * 
+ *   IMPORTANT. TO AVOID GRADING SURPRISES:
+ *   1. Use the dlc compiler to check that your solutions conform
+ *      to the coding rules.
+ *   2. Use the BDD checker to formally verify that your solutions produce 
+ *      the correct answers.
+ */
+
+
+#endif
+/* Copyright (C) 1991-2016 Free Software Foundation, Inc.
+   This file is part of the GNU C Library.
+
+   The GNU C Library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Lesser General Public
+   License as published by the Free Software Foundation; either
+   version 2.1 of the License, or (at your option) any later version.
+
+   The GNU C Library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public
+   License along with the GNU C Library; if not, see
+   <http://www.gnu.org/licenses/>.  */
+/* This header is separate from features.h so that the compiler can
+   include it implicitly at the start of every compilation.  It must
+   not itself include <features.h> or any other header that includes
+   <features.h> because the implicit include comes before any feature
+   test macros that may be defined in a source file before it first
+   explicitly includes a system header.  GCC knows the name of this
+   header in order to preinclude it.  */
+/* glibc's intent is to support the IEC 559 math functionality, real
+   and complex.  If the GCC (4.9 and later) predefined macros
+   specifying compiler intent are available, use them to determine
+   whether the overall intent is to support these features; otherwise,
+   presume an older compiler has intent to support these features and
+   define these macros by default.  */
+/* wchar_t uses Unicode 8.0.0.  Version 8.0 of the Unicode Standard is
+   synchronized with ISO/IEC 10646:2014, plus Amendment 1 (published
+   2015-05-15).  */
+/* We do not support C11 <threads.h>.  */
+/* 
+ * fp_func4 - Return bit-level equivalent of expression 2*f for
+ *   floating point argument f.
+ *   Both the argument and result are passed as unsigned int's, but
+ *   they are to be interpreted as the bit-level representation of
+ *   single-precision floating point values.
+ *   When argument is NaN, return argument
+ *   Operations allowed to use: Any integer/unsigned operations incl. ||, &&. also if, while
+ *   Max # of operations: 30
+ *   Points: 4
+ */
+unsigned fp_func4(unsigned uf) {
+  return 2;
+}
+/* 
+ * is_addition_no_problem - Will it be okay(no overflow) when we add x and y?
+ *   If there is an overflow, return 0. Otherwise, return 1.
+ *   Example: is_addition_no_problem(0x80000000,0x80000000) = 0,
+ *            is_addition_no_problem(0x80000000,0x70000000) = 1, 
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 20
+ *   Points: 3
+ */
+int is_addition_no_problem(int x, int y) {
+	int eq=x^y;
+	return (!!(eq>>31))+((!(eq>>31))&((x>>31)^(~(((x+y)>>31)))));
+
+
+/*
+eq evaluate that whether x and y are have same sign bit.
+if x and y have different sign bit, there's no overflow.
+However, if x and y have same sign bit, we can evaluate that there is overflow or not.
+If x or y is positive, overflow occurs when x+y<0. Also, if x or y is negative, overflow occurs when
+x+y>0.
+Now, let me explain about code.
+!!(eq>>31) is 1 when x and y are have different sign bit and 0 when x and y are have same sign bit.
+!(eq>>31) is 0 when diff-sign bits and 1 when same-sign bits.
+x>>31 is 0 when x is >0 and 0xffffffff when x is <0.
+(x+y)>>31 is same with in case of x>>31 but evaluate x+y's sign.
+Now, look 5 different cases.
+Case 1 : x and y have different sign bits
+	!!(eq>>31)=1, !(eq>>31)=0 so return 1.
+Case 2 : x and y are positive and overflow not occurs.
+	!!(eq>>31)=0, !(eq>>31)=1, (x>>31)=0, (x+y)>>31=0
+	(x>>31)^(~((x+y)>>31))=0xffffffff, (!(eq>>31))&0xffffffff=0x01
+	so return 1.
+Case 3 : x and y are positive and overflow occurs.
+	other values are same with case 2, but (x+y)>>31=0xffffffff
+	so return 0.
+Case 4 : x and y are negative and overflow not occurs.
+	other values are same with case 2, but (x>>31)=0xffffffff, (x+y)>>31=0xffffffff
+	so return 1.
+Case 5 : x and y are negative and overflow ocurrs.
+	other values are same with case 4, but (x+y)>>31=0
+	so return 0.
+*/
+
+	
+}
+/* 
+ * is_x_fits_in_16_bit - Returns 1 if x fits in 16-bit, 2's complement.
+ *   Examples: is_x_fits_in_16_bit(34000) = 0, is_x_fits_in_16_bit(-32768) = 1
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 8
+ *   Points: 1
+ */
+int is_x_fits_in_16_bit(int x) {
+	int crit_x=x>>15;
+	int std=~0;
+  return !(crit_x&std)+(!(crit_x^std));
+}
+
+
+/*
+crit_x means criteria of x to evaluates the 17 most siginificance bits.
+std means standard for judge that whether the 17 most significance bits are used or not.
+if x>0, possible range of number is 0x0~0x7fff and if x<0, possible range of number is 0xffff8000
+~0xffffffff. So if x>0, crit_x&std is 0 when x fits in 16 bits and non-zero when x doesn't fits in 16 bits. Also if x<0, crit_x^std is 0 when x fits and non-zero when x doesn't fits.
+And they doesn't effects another sign's evaluation expressions.
+*/
+
+
+/* 
+ * fp_func1 - Return bit-level equivalent of expression 0.5*f for
+ *   floating point argument f.
+ *   Both the argument and result are passed as unsigned int's, but
+ *   they are to be interpreted as the bit-level representation of
+ *   single-precision floating point values.
+ *   When argument is NaN, return argument
+ *   Operations allowed to use: Any integer/unsigned operations incl. ||, &&. also if, while
+ *   Max # of operations: 30
+ *   Points: 4
+ */
+unsigned fp_func1(unsigned uf) {
+  return 2;
+}
+/* 
+ * fp_func3 - Return bit-level equivalent of absolute value of f for
+ *   floating point argument f.
+ *   Both the argument and result are passed as unsigned int's, but
+ *   they are to be interpreted as the bit-level representations of
+ *   single-precision floating point values.
+ *   When argument is NaN, return argument..
+ *   Operations allowed to use: Any integer/unsigned operations incl. ||, &&. also if, while
+ *   Max # of operations: 10
+ *   Points: 2
+ */
+unsigned fp_func3(unsigned uf) {
+  return 2;
+}
+/* 
+ * fp_func2 - Return bit-level equivalent of expression (int) f
+ *   for floating point argument f.
+ *   Argument is passed as unsigned int, but
+ *   it is to be interpreted as the bit-level representation of a
+ *   single-precision floating point value.
+ *   Anything out of range (including NaN and infinity) should return
+ *   0x80000000u.
+ *   Operations allowed to use: Any integer/unsigned operations incl. ||, &&. also if, while
+ *   Max # of operations: 30
+ *   Points: 4
+ */
+int fp_func2(unsigned uf) {
+  return 2;
+}
+/* 
+ * extract_nth_byte - Extract the nth byte from a word x and return it.
+ *   The index of the byte at LSB is 0.
+ *   The index of the byte at MSB is 3.
+ *   Examples: extract_nth_byte(0xFF34AB78,1) = 0xAB
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 6
+ *   Points: 2
+ */
+int extract_nth_byte(int x, int n) {
+	int ind=n<<3;
+  return ((x&(0xff<<ind))>>ind)&0xff;
+}
+/* 
+ * substitute_byte(x,n,c) - In a word x, replace the nth byte with a new byte c.
+ *   The index of the byte at LSB is 0.
+ *   The index of the byte at MSB is 3.
+ *   Examples: substitute_byte(0xffffffff,1,0xab) = 0xffffabff
+ *   Assume that 0 <= n <= 3 and 0 <= c <= 255.
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 10
+ *   Points: 3
+ */
+int substitute_byte(int x, int n, int c) {
+	int ind=n<<3;
+	int del=0xff<<ind;
+  return (x&(~del))|(c<<ind);
+}
+/*
+ * floor_log_2 - return floor(log base 2 of x), where x > 0
+ *   Example: floor_log_2(16) = 4
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 90
+ *   Points: 4
+ */
+int floor_log_2(int x) {
+  return 2;
+}
+/* 
+ * absolute_of_x - Return abs(x)
+ *   Example: absolute_of_x(-1) = 1.
+ *   You may assume -TMax <= x <= TMax
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 10
+ *   Points: 4
+ */
+int absolute_of_x(int x) {
+  return 2;
+}
+/* 
+ * is_le - Return 1 when x <= y, else return 0 
+ *   Example: is_le(4,5) = 1.
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 24
+ *   Points: 3
+ */
+int is_le(int x, int y) {
+  return 2;
+}
+/* 
+ * divide_by_power_of_2 - Return the same value as x/(2^n), for 0 <= n <= 30
+ *                        Please round to 0.
+ *   Examples: divide_by_power_of_2(15,1) = 7, divide_by_power_of_2(-33,4) = -2
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 15
+ *   Points: 2
+ */
+int divide_by_power_of_2(int x, int n) {
+    return 2;
+}
+/* 
+ * bang - return !x, but you should not use ! in the function.
+ *   Examples: bang(3) = 0, bang(0) = 1
+ *   Operations allowed to use: ~ & ^ | + << >>
+ *   Max # of operations: 12
+ *   Points: 4 
+ */
+int bang(int x) {
+  return 2;
+}
+/* 
+ * is_subtraction_no_problem - Can x-y be done without any problem(overflow)?
+ *   If there is an overflow, return 0. Otherwise, return 1.
+ *   Example: is_subtraction_no_problem(0x80000000,0x80000000) = 1,
+ *            is_subtraction_no_problem(0x80000000,0x70000000) = 0, 
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 20
+ *   Points: 3
+ */
+int is_subtraction_no_problem(int x, int y) {
+  return 2;
+}
+/* 
+ * aeb - If even-numbered bit in a word is set at least one, return 1.
+ *   Examples aeb(0xA) = 0, aeb(0xE) = 1
+ *   Operations allowed to use: ! ~ & ^ | + << >>
+ *   Max # of operations: 12
+ *   Points: 2
+ */
+int aeb(int x) {
+  return 2;
+}
