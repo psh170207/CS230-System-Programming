@@ -189,8 +189,10 @@ unsigned fp_func4(unsigned uf) {
 
 }
 /*
-'s' is sign bit(if uf>0 then s=1 and else then s=0). 'exp' is exp of uf. init is exp's part is fill with 0s and other part fill with 1s. init used for initialize the exp part to 0.
-if exp==0xff, uf is inf or NaN so return uf. if exp is 0, uf is denormalized value so just uf<<1. if uf<0, add sign bit using 0x80000000. else, uf is normalized value so just exp=exp+1.
+'s' is sign bit(if uf>0 then s=1 and else then s=0). 'exp' is exp of uf.
+init is exp's part is fill with 0s and other part fill with 1s. init used for initialize the exp part to 0.
+if exp==0xff, uf is inf or NaN so return uf. if exp is 0, uf is denormalized value so just uf<<1. if uf<0, add sign bit using 0x80000000.
+else, uf is normalized value so just exp=exp+1.
 To substitute new exp to uf, use init.
 */
 
@@ -257,7 +259,8 @@ int is_x_fits_in_16_bit(int x) {
 crit_x means criteria of x to evaluates the 17 most siginificance bits.
 std means standard for judge that whether the 17 most significance bits are used or not.
 if x>0, possible range of number is 0x0~0x7fff and if x<0, possible range of number is 0xffff8000
-~0xffffffff. So if x>0, crit_x&std is 0 when x fits in 16 bits and non-zero when x doesn't fits in 16 bits. Also if x<0, crit_x^std is 0 when x fits and non-zero when x doesn't fits.
+~0xffffffff. So if x>0, crit_x&std is 0 when x fits in 16 bits and non-zero when x doesn't fits in 16 bits.
+Also if x<0, crit_x^std is 0 when x fits and non-zero when x doesn't fits.
 And they doesn't effects another sign's evaluation expressions.
 */
 
@@ -287,7 +290,16 @@ unsigned fp_func1(unsigned uf) {
 }
 
 /*
-To check sign and exp of uf, declare s and exp. And declare 'odd' to check uf is odd or even. If uf is even, there' no rounding. However, uf is odd, we need round-to-even.To round to even, if uf is odd and uf*0.5 is odd, we need +1. Otherwise, we don't need +1.If exp = 0 or 1,use arithmetic right shift because it is boundary of Denormailized and Normailized. Then, we change fraction of uf. So we need round to even. Otherwise, we don't need to round to even.If exp=0xff, uf is NaN or infinity, so return uf. If 1<exp<0xff, just exp=exp-1.
+To check sign and exp of uf, declare s and exp.
+And declare 'odd' to check uf is odd or even. If uf is even, there' no rounding.
+However, uf is odd, we need round-to-even.
+To round to even, if uf is odd and uf*0.5 is odd, we need +1.
+Otherwise, we don't need +1.
+If exp = 0 or 1,use arithmetic right shift because it is boundary of Denormailized and Normailized.
+Then, we change fraction of uf.
+So we need round to even.
+Otherwise, we don't need to round to even.If exp=0xff, uf is NaN or infinity, so return uf.
+If 1<exp<0xff, just exp=exp-1.
 */
 
 
@@ -441,7 +453,8 @@ int floor_log_2(int x) {
 n16 is 0xffff0000, n8 is 0x0000ff00, n4 is 0x000000f0, n2 is 0x0000000c, n1 is 0x00000002.
 exist_in_16 checks whether exists 1 in first 16bits of x. if there is 1 in first 16 bits then x8=x>>8, else then x8=x.
 exist_in_8 checks whether exists 1 in first 8bits of x8. if ther is 1 in first 8 bits then x4=x8>>4, else then x4=x8.
-repeat this steps until exist_in_1 then exist_in_16*16+exist_in_8*8+exist_in_4*4+exists_in_2*2+exists_in_1 is represent log2(x).
+repeat this steps until exist_in_1 then exist_in_16*16+exist_in_8*8+exist_in_4*4+exists_in_2*2+exists_in_1 is
+represent log2(x).
 */
 
 /* 
