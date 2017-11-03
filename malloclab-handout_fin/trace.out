@@ -1,0 +1,336 @@
+Team Name:cs20150326
+Member 1 :Park Si Hwan:psh150204@kaist.ac.kr
+Using default tracefiles in /share/traces/
+mm_init called
+mm_init : heap_listp is 0xf61c0038
+coalesce called
+coalesce : CASE1 : success
+mm_init : list_ptr3 : 0xf61c0040
+mm_malloc called with asize 2048
+find_fit
+find_fit : list_ptr3 : 0xf61c0040
+find_ptr : iteration
+find_ptr : find free block
+find_fit : success with bp : 0xf61c0040
+mm_malloc : find_fit success
+place
+place : CASE1
+remove : bp is 0xf61c0040
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place1 : remove bp : 0xf61c0040 success
+coalesce called
+coalesce : CASE1 : success
+add_list : bp is 0xf61c0840
+add_list : initial bp's NEXT is 0x0
+add_list : initial bp's PREV is 0x0
+add : CASE4
+add : CASE4 success
+add_list : *list_ptr3 : 0xf61c0840
+add_list : *list_ptr3 NEXT : 0x0
+add_list : *list_ptr3 PREV : 0x0
+place : success
+mm_malloc : normal success
+mm_malloc : list_ptr3 : 0xf61c0840
+mm_malloc called with asize 2048
+find_fit
+find_fit : list_ptr3 : 0xf61c0840
+find_ptr : iteration
+find_ptr : find free block
+find_fit : success with bp : 0xf61c0840
+mm_malloc : find_fit success
+place
+place : CASE2
+remove : bp is 0xf61c0840
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place2 : remove bp : 0xf61c0840 success
+place : success
+mm_malloc : normal success
+mm_malloc called with asize 56
+find_fit
+find_fit : list_ptr0 : 0x0
+find_ptr : No fit free block
+find_ptr : No fit free block
+find_ptr : No fit free block
+find_ptr : No fit free block
+find_fit : success with bp : 0x0
+mm_malloc : No fit
+coalesce called
+coalesce : CASE1 : success
+place
+place : CASE1
+remove : bp is 0xf61c1040
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place1 : remove bp : 0xf61c1040 success
+coalesce called
+coalesce : CASE1 : success
+add_list : bp is 0xf61c1078
+add_list : initial bp's NEXT is 0x0
+add_list : initial bp's PREV is 0x0
+add : CASE4
+add : CASE4 success
+add_list : *list_ptr3 : 0xf61c1078
+add_list : *list_ptr3 NEXT : 0x0
+add_list : *list_ptr3 PREV : 0x0
+place : success
+mm_malloc : extend success
+mm_malloc : list_ptr3 : 0xf61c1078
+mm_malloc called with asize 4080
+find_fit
+find_fit : list_ptr3 : 0xf61c1078
+find_ptr : iteration
+find_ptr : No fit free block
+find_fit : success with bp : 0x0
+mm_malloc : No fit
+coalesce called
+coalesce : CASE3
+remove : bp is 0xf61c1078
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+coalesce : CASE3 is success
+place
+place : CASE1
+remove : bp is 0xf61c1078
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place1 : remove bp : 0xf61c1078 success
+coalesce called
+coalesce : CASE1 : success
+add_list : bp is 0xf61c2068
+add_list : initial bp's NEXT is 0x0
+add_list : initial bp's PREV is 0x0
+add : CASE4
+add : CASE4 success
+add_list : *list_ptr3 : 0xf61c2068
+add_list : *list_ptr3 NEXT : 0x0
+add_list : *list_ptr3 PREV : 0x0
+place : success
+mm_malloc : extend success
+mm_malloc : list_ptr3 : 0xf61c2068
+mm_malloc called with asize 4080
+find_fit
+find_fit : list_ptr3 : 0xf61c2068
+find_ptr : iteration
+find_ptr : No fit free block
+find_fit : success with bp : 0x0
+mm_malloc : No fit
+coalesce called
+coalesce : CASE3
+remove : bp is 0xf61c2068
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+coalesce : CASE3 is success
+place
+place : CASE1
+remove : bp is 0xf61c2068
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place1 : remove bp : 0xf61c2068 success
+coalesce called
+coalesce : CASE1 : success
+add_list : bp is 0xf61c3058
+add_list : initial bp's NEXT is 0x0
+add_list : initial bp's PREV is 0x0
+add : CASE4
+add : CASE4 success
+add_list : *list_ptr3 : 0xf61c3058
+add_list : *list_ptr3 NEXT : 0x0
+add_list : *list_ptr3 PREV : 0x0
+place : success
+mm_malloc : extend success
+mm_malloc : list_ptr3 : 0xf61c3058
+mm_malloc called with asize 4080
+find_fit
+find_fit : list_ptr3 : 0xf61c3058
+find_ptr : iteration
+find_ptr : No fit free block
+find_fit : success with bp : 0x0
+mm_malloc : No fit
+coalesce called
+coalesce : CASE3
+remove : bp is 0xf61c3058
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+coalesce : CASE3 is success
+place
+place : CASE1
+remove : bp is 0xf61c3058
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place1 : remove bp : 0xf61c3058 success
+coalesce called
+coalesce : CASE1 : success
+add_list : bp is 0xf61c4048
+add_list : initial bp's NEXT is 0x0
+add_list : initial bp's PREV is 0x0
+add : CASE4
+add : CASE4 success
+add_list : *list_ptr3 : 0xf61c4048
+add_list : *list_ptr3 NEXT : 0x0
+add_list : *list_ptr3 PREV : 0x0
+place : success
+mm_malloc : extend success
+mm_malloc : list_ptr3 : 0xf61c4048
+mm_malloc called with asize 4080
+find_fit
+find_fit : list_ptr3 : 0xf61c4048
+find_ptr : iteration
+find_ptr : find free block
+find_fit : success with bp : 0xf61c4048
+mm_malloc : find_fit success
+place
+place : CASE2
+remove : bp is 0xf61c4048
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place2 : remove bp : 0xf61c4048 success
+place : success
+mm_malloc : normal success
+mm_malloc called with asize 4080
+find_fit
+find_fit : list_ptr3 : 0x0
+find_ptr : No fit free block
+find_fit : success with bp : 0x0
+mm_malloc : No fit
+coalesce called
+coalesce : CASE1 : success
+place
+place : CASE2
+remove : bp is 0xf61c5040
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place2 : remove bp : 0xf61c5040 success
+place : success
+mm_malloc : extend success
+mm_malloc called with asize 4080
+find_fit
+find_fit : list_ptr3 : 0x0
+find_ptr : No fit free block
+find_fit : success with bp : 0x0
+mm_malloc : No fit
+coalesce called
+coalesce : CASE1 : success
+place
+place : CASE2
+remove : bp is 0xf61c6040
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place2 : remove bp : 0xf61c6040 success
+place : success
+mm_malloc : extend success
+mm_malloc called with asize 1016
+find_fit
+find_fit : list_ptr2 : 0x0
+find_ptr : No fit free block
+find_ptr : No fit free block
+find_fit : success with bp : 0x0
+mm_malloc : No fit
+coalesce called
+coalesce : CASE1 : success
+place
+place : CASE1
+remove : bp is 0xf61c7040
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place1 : remove bp : 0xf61c7040 success
+coalesce called
+coalesce : CASE1 : success
+add_list : bp is 0xf61c7438
+add_list : initial bp's NEXT is 0x0
+add_list : initial bp's PREV is 0x0
+add : CASE4
+add : CASE4 success
+add_list : *list_ptr3 : 0xf61c7438
+add_list : *list_ptr3 NEXT : 0x0
+add_list : *list_ptr3 PREV : 0x0
+place : success
+mm_malloc : extend success
+mm_malloc : list_ptr3 : 0xf61c7438
+mm_malloc called with asize 512
+find_fit
+find_fit : list_ptr2 : 0x0
+find_ptr : No fit free block
+find_ptr : iteration
+find_ptr : find free block
+find_fit : success with bp : 0xf61c7438
+mm_malloc : find_fit success
+place
+place : CASE1
+remove : bp is 0xf61c7438
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place1 : remove bp : 0xf61c7438 success
+coalesce called
+coalesce : CASE1 : success
+add_list : bp is 0xf61c7638
+add_list : initial bp's NEXT is 0x0
+add_list : initial bp's PREV is 0x0
+add : CASE4
+add : CASE4 success
+add_list : *list_ptr3 : 0xf61c7638
+add_list : *list_ptr3 NEXT : 0x0
+add_list : *list_ptr3 PREV : 0x0
+place : success
+mm_malloc : normal success
+mm_malloc : list_ptr3 : 0xf61c7638
+mm_malloc called with asize 1016
+find_fit
+find_fit : list_ptr2 : 0x0
+find_ptr : No fit free block
+find_ptr : iteration
+find_ptr : find free block
+find_fit : success with bp : 0xf61c7638
+mm_malloc : find_fit success
+place
+place : CASE1
+remove : bp is 0xf61c7638
+remove : bp NEXT is 0x0
+remove : bp PREV is 0x0
+remove : CASE1
+remove : success
+place1 : remove bp : 0xf61c7638 success
+coalesce called
+coalesce : CASE1 : success
+add_list : bp is 0xf61c7a30
+add_list : initial bp's NEXT is 0x0
+add_list : initial bp's PREV is 0x0
+add : CASE3
+add : CASE3 success
+add_list : *list_ptr2 : 0xf61c7a30
+add_list : *list_ptr2 NEXT : 0x0
+add_list : *list_ptr2 PREV : 0x0
+place : success
+mm_malloc : normal success
+mm_malloc : list_ptr2 : 0xf61c7a30
+mm_malloc called with asize 56
+f
